@@ -1,5 +1,28 @@
 <div class="container">
   <div class="row">
-    <h1>観光地登録</h1>
+    <h5>観光地登録</h5>
+    
+    <% if @tourist_spot.errors.any? %>
+      <%= @tourist_spot.errors.count %>件のエラーが発生しました。
+      <ul>
+        <%= @tourist_spot.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    <% end %>
+    
+  </div>
+  <div class="row">
+    <%= form_with model: @tourist_spot, url: admin_tourist_spots_path, method: :post do |f| %>
+    <table>
+      <tr><td>観光地画像</td><td><%= f.file_field :image,accept: "image/*" %></td></tr>
+      <tr><td>観光地名</td><td><%= f.text_field :name %></td></tr>
+      <tr><td>観光地説明</td><td><%= f.text_area :exaplanation %></td></tr>
+      <tr><td>住所</td><td><%= f.text_field :address %></td></tr>
+      <tr><td>おすすめ季節</td><td><%= f.radio_button :season, :0, id:"spring" %><label for="spring">春</label>
+                                   <%= f.radio_button :season, :1, id:"summer" %><label for="summer">夏</label>
+                                   <%= f.radio_button :season, :2, id:"autumn" %><label for="autumn">秋</label>
+                                   <%= f.radio_button :season, :3, id:"winter" %><label for="winter">冬</label></td></tr>
+    </table>
   </div>
 </div>

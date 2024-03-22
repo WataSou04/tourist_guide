@@ -1,5 +1,6 @@
 class Admin::TouristSpotsController < ApplicationController
   def new
+    @tourist_spot = TouristSpot
   end
   
   def create
