@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="row">
+    <h5>観光地詳細</h5>
+  </div>
+  <div class="row">
+    <%= image_tag @tourist_spot.image, size: "350x250" %>
+    <%= @tourist_spot.name %>
+    <%= @tourist_spot.explanation %>
+    <%= @tourist_spot.address %>
+    <%= @tourist_spot.season_i18n %>
+  </div>
+</div>
