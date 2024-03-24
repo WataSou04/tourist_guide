@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     root to: 'homes#top'
     get 'customers' => 'customers#show'
     resources :tourist_spots, only: [:index, :show]
+    resources :reviews, only: [:new, :create, :index, :show, :destroy]
   end
   
   devise_for :admin, skip: [:registrations, :passwords], controllers: {
