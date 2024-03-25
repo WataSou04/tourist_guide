@@ -9,5 +9,13 @@
     <%= @tourist_spot.address %>
     <%= @tourist_spot.season_i18n %>
   </div>
-  <%= link_to "レビュ一覧", reviews_path %>
+  <dvi class="row">
+    <%= link_to "レビューを書く", new_review_path %>
+  </dvi>
+  <div class="row">
+    <% @reviews.each do |review| %>
+    <%= review.evaluation %>
+    <%= review.thoughts %>
+    <% end %>
+  </div>
 </div>
