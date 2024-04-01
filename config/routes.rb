@@ -8,7 +8,9 @@ Rails.application.routes.draw do
     root to: 'homes#top'
     get 'customers' => 'customers#show'
     resources :tourist_spots, only: [:index, :show]
-    resources :reviews, only: [:new, :create, :show, :destroy]
+    get 'reviews/:id/new' => 'reviews#new', as: :make
+    get 'reviews/completion' => 'reviews#completion'
+    resources :reviews, only: [:create, :show, :destroy]
     post 'reviews/check' => 'reviews#check'
   end
   

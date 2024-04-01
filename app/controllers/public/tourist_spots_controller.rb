@@ -5,6 +5,7 @@ class Public::TouristSpotsController < ApplicationController
   
   def show
     @tourist_spot = TouristSpot.find(params[:id])
-    @reviews = Review.where(tourist_spot_id: @tourist_spot.id)
+    @review = Review.new
+    @reviews = Review.all
   end
 end

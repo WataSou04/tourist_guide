@@ -10,12 +10,14 @@
     <%= @tourist_spot.season_i18n %>
   </div>
   <dvi class="row">
-    <%= link_to "レビューを書く", new_review_path %>
+    <%= link_to "レビューを書く", make_path(@tourist_spot.id) %>
   </dvi>
   <div class="row">
+    <table class="table">
+      <tr><td>評価</td><td>コメント</td></tr>
     <% @reviews.each do |review| %>
-    <%= review.evaluation %>
-    <%= review.thoughts %>
+      <tr><td><%= review.evaluation %></td><td><%= review.thoughts %></td></tr>
     <% end %>
+    </table>
   </div>
 </div>

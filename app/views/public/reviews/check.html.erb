@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row">
+    <h5>レビュー情報確認</h5>
+  </div>
+  <div class="row">
+    <h5>評価数</h5>
+    <%= @review.evaluation %>
+    <h5>コメント</h5>
+    <%= @review.thoughts %>
+    <h5>画像</h5>
+    <%= image_tag @review.image, size: "200x120" %>
+  </div>
+  <%= form_with model: @review_new, url: reviews_path, method: :post do |f| %>
+    <%= f.hidden_field :customer_id, value: current_customer.id %>
+    <%= f.hidden_field :image, value: @review.image %>
+    <%= f.hidden_field :evaluation, value: @review.evaluation %>
+    <%= f.hidden_field :thoughts, value: @review.thoughts %>
+    <%= f.submit "投稿を確定する", class: 'btn btn-success' %>
+  <% end %>
+</div>
