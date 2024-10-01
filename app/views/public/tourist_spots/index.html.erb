@@ -1,11 +1,39 @@
-<div class="container">
-  <div class="row">
-    <h5>観光地一覧</h5>
-  </div>
-  <div class="row">
-    <% @tourist_spots.each do |tourist_spot| %>
-    <%= link_to tourist_spot_path(tourist_spot.id) do %><%= image_tag tourist_spot.image, size: "200x150" %><% end %>
-    <%= tourist_spot.name %>
+<div class="d-flex mt-3 ml-5">
+  <div>
+    <%= form_with url: search_path, method: :get, local: true do |f| %>
+      <%= f.text_field :content %>
+      <%= f.select :method, options_for_select({"完全一致" => "perfect", "前方一致" => "forward", "後方一致" => "backward", "部分一致" => "partial"}) %>
+      <%= f.submit "検索" %>
     <% end %>
   </div>
+  <div>
+    <%= form_with url: tagsearch_path, method: :get, local: true do |f| %>
+      <%= f.text_field :content %>
+      <%= f.submit "タグ検索" %>
+    <% end %>
+  </div>
+</div>
+<div class="card-list-container mt-3 d-flex flex-wrap justify-content-around">
+  <% @tourist_spots.each do |tourist_spot| %>
+  <div class="card w-25 m-4 shadow-lg">
+    <%= link_to tourist_spot_path(tourist_spot.id) do %>
+      <%= image_tag tourist_spot.image, class: "card-img-top"; %>
+    <% end %>
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+          <p class="card-title">
+            <%= link_to(tourist_spot_path(tourist_spot.id), class: "text-dark") do %>
+              <strong><i class="far fa-flag"></i><h5><%= tourist_spot.name %></h5></strong>
+            <% end %>
+          </p>
+          <p class="card-text"><%= tourist_spot.address %></p>
+          <p class="card-text"><%= tourist_spot.category %></p>
+          <span><%= link_to "#{tourist_spot.favorites.count} 人登録", tourist_spot_path(tourist_spot.id), class: "text-dark" %></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% end %>
+  <%= paginate @tourist_spots %>
 </div>

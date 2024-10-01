@@ -1,23 +1,63 @@
+<div class="col bg-secondary">
+  <%= image_tag @tourist_spot.image, class: "mx-auto d-block", size: "600x450" %>
+</div>
 <div class="container">
-  <div class="row">
-    <h5>観光地詳細</h5>
+  <div class="row mt-5">
+    <div class="col-12">
+      <h1><strong><%= @tourist_spot.name %></strong></h1>
+      <% unless @customer.guest_customer? %>
+        <% if @tourist_spot.favorited_by?(current_customer) %>
+        <p>
+          <%= link_to tourist_spot_favorite_path(@tourist_spot), method: :delete, class: 'btn btn-outline-danger' do %>
+            ❤︎️<%= @tourist_spot.favorites.count %>お気に入り
+          <% end %>
+        </p>
+        <% else %>
+        <p>
+          <%= link_to tourist_spot_favorite_path(@tourist_spot), method: :post, class: 'btn btn-outline-danger' do %>
+            ♡<%= @tourist_spot.favorites.count %>お気に入り
+          <% end %>
+        </p>
+        <% end %>
+      <% end %>
+      <h5><%= @tourist_spot.address %>  |  <%= @tourist_spot.category %></h5>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col">
+      <p><%= @tourist_spot.explanation %></p>
+    </div>
+  </div>
+  <div id="map", class="mt-3"></div>
+  <div class="row mt-5">
+    <%= link_to "レビューを書く", new_tourist_spot_review_path(@tourist_spot.id), class: 'btn btn-link' %>
   </div>
   <div class="row">
-    <%= image_tag @tourist_spot.image, size: "350x250" %>
-    <%= @tourist_spot.name %>
-    <%= @tourist_spot.explanation %>
-    <%= @tourist_spot.address %>
-    <%= @tourist_spot.season_i18n %>
-  </div>
-  <dvi class="row">
-    <%= link_to "レビューを書く", make_path(@tourist_spot.id) %>
-  </dvi>
-  <div class="row">
-    <table class="table">
-      <tr><td>評価</td><td>コメント</td></tr>
     <% @reviews.each do |review| %>
-      <tr><td><%= review.evaluation %></td><td><%= review.thoughts %></td></tr>
+    <div class="col-md-12 border-top border-bottom py-3">
+      <div class="mb-3"><h5><%= review.customer.last_name %> <%= review.customer.first_name %></h5></div>
+      <div id="star_<%= review.id %>", class="mb-1"></div>
+        <script>
+        $(document).on('turbolinks:load', function() {
+          let elem = document.querySelector('#star_<%= review.id %>');
+          if (elem == null) return;
+  
+          elem.innerHTML = "";
+          let opt = {  
+            starOn: "<%= asset_path('star-on.png') %>",
+            starOff: "<%= asset_path('star-off.png') %>",
+            starHalf: "<%= asset_path('star-half.png') %>",
+            score: "<%= review.evaluation %>",
+            readOnly: true,
+          };
+          raty(elem, opt);
+        });
+        </script>
+      <div class="mb-2"><%= link_to tourist_spot_review_path(@tourist_spot.id, review.id), class: 'text-dark' do %><strong><%= review.title %></strong><% end %></div>
+      <div><%= review.thoughts %></div>
+    </div>
     <% end %>
-    </table>
   </div>
 </div>
+
+<%= javascript_pack_tag 'map', 'data-turbolinks-track': 'reload' %>

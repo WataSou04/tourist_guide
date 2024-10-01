@@ -5,4 +5,30 @@ class Customer < ApplicationRecord
          :recoverable, :rememberable, :validatable
          
   has_many :reviews
+  has_many :comments
+  has_many :favorites, dependent: :destroy
+  
+  validates :last_name, presence: true
+  validates :first_name, presence: true
+  validates :last_name_kana, presence: true
+  validates :first_name_kana, presence: true
+  validates :email, presence: true
+  
+  GUEST_CUSTOMER_EMAIL = "guest@example.com"
+  
+  def self.guest
+    find_or_create_by!(email: GUEST_CUSTOMER_EMAIL) do |customer|
+      customer.password = SecureRandom.urlsafe_base64
+      customer.first_name = "user"
+      customer.last_name = "geust"
+      customer.first_name_kana = "ユーザー"
+      customer.last_name_kana = "ゲスト"
+      customer.is_active = true
+    end
+  end
+  
+  def guest_customer?
+    email == GUEST_CUSTOMER_EMAIL
+  end
+  
 end
