@@ -8,7 +8,7 @@
             <h6 class="alert-heading">
               <%= @tourist_spot.errors.count %>件のエラーが発生しました。
             </h6>
-            <%= @tourist_spot.errors.full_messages.each do |message| %>
+            <% @tourist_spot.errors.full_messages.each do |message| %>
               <li><%= message %></li>
             <% end %>
           </ul>

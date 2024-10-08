@@ -7,6 +7,18 @@ ja:
         autumn: "秋"
         winter: "冬"
   activerecord:
+    attributes:
+      tourist_spot:
+        name: "観光地名"
+        address: "観光地場所"
+        category: "カテゴリー"
+        explanation: "観光地情報"
+      customer:
+        first_name_kana: "シメイ"
+        last_name_kana: "ナマエ"
+        first_name: "氏名"
+        last_name: "名前"
+        email: "メールアドレス"
     errors:
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'

@@ -1,14 +1,14 @@
 <div class="d-flex mt-4 ml-5">
   <div>
-    <%= form_with url: search_path, method: :get, local: true do |f| %>
-      <%= f.text_field :content %>
+    <%= form_with url: admin_search_path, method: :get, local: true do |f| %>
+      <%= f.text_field :content, require: true %>
       <%= f.select :method, options_for_select({"完全一致" => "perfect", "前方一致" => "forward", "後方一致" => "backward", "部分一致" => "partial"}) %>
       <%= f.submit "検索" %>
     <% end %>
   </div>
   <div class="ml-3">
-    <%= form_with url: tagsearch_path, method: :get, local: true do |f| %>
-      <%= f.text_field :content %>
+    <%= form_with url: admin_tagsearch_path, method: :get, local: true do |f| %>
+      <%= f.text_field :content, require: true %>
       <%= f.submit "タグ検索" %>
     <% end %>
   </div>
@@ -38,5 +38,4 @@
     </div>
   </div>
   <% end %>
-  <%= paginate @tourist_spots %>
 </div>

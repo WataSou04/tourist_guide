@@ -36,6 +36,8 @@ Rails.application.routes.draw do
     resources :tourist_spots, only: [:new, :create, :show, :edit, :update, :destroy] do
       resources :reviews, only: [:show, :destroy]
     end
+    get 'search' => 'tourist_spots#search'
+    get 'tagsearch' => 'tourist_spots#tagsearch'
     resources :customers, only: [:index, :show, :edit, :update]
     resources :comments, only: [:destroy]
   end

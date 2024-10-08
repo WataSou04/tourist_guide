@@ -4,9 +4,9 @@ class TouristSpot < ApplicationRecord
   has_one_attached :image
   
   validates :name, presence: true
-  validates :explanation, presence: true
   validates :address, presence: true
   validates :category, presence: true
+  validates :explanation, presence: true
   
   geocoded_by :address
   after_validation :geocode
