@@ -9,7 +9,7 @@ class Public::CommentsController < ApplicationController
     if @comment.save
       redirect_to tourist_spot_review_path(@comment.review.tourist_spot.id, @comment.review.id)
     else
-      render template: "reviews/show"
+      render "public/reviews/show", loclas: { tourist_spot: @tourist_spot }
     end
   end
   

@@ -19,6 +19,9 @@ ja:
         first_name: "氏名"
         last_name: "名前"
         email: "メールアドレス"
+      review:
+        evaluation: "タイトル"
+        thoughts: "感想"
     errors:
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'
